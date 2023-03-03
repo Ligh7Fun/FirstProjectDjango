@@ -14,7 +14,7 @@
     </h2>
     {% if p.photo %}
     <!-- <img class="img-article-left thumb" src="{% url 'home' %}media/{{ p.photo }}" />-->
-    <img class="img-article-left thumb" src="{{ p.photo.url }}" />
+    <img class="img-article-left thumb" style="border-radius: 10px;" src="{{ p.photo.url }}" />
     {% endif %} {% autoescape on %} {{p.content|linebreaks|truncatewords:50}}
     <!-- -->
     {% endautoescape %}

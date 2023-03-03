@@ -1,5 +1,6 @@
-{% load static %}
-<!doctype html>
+{% load static %} 
+{% load women_tags %}
+<!DOCTYPE html>
 <html>
   <head>
     <title>{{title}}</title>
@@ -21,19 +22,23 @@
       <tr>
         <td valign="top">
           {% block mainmenu %}
-          <div class="header">
-            <ul id="mainmenu" class="mainmenu">
-              <li class="logo">
-                <a href="{% url 'home' %}"><div class="logo"></div></a>
-              </li>
-              {% for m in menu %} {% if not forloop.last %}
-              <li><a href="{% url m.url_name %}">{{m.title}}</a></li>
-              {% else %}
-              <li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>
-              {% endif %} {% endfor %}
-            </ul>
-            <div class="clear"></div>
-          </div>
+            <div class="header">
+              <ul id="mainmenu" class="mainmenu">
+                <li class="logo">
+                  <a href="{% url 'home' %}"><div class="logo"></div></a>
+                </li>
+                {% for m in menu %} 
+                  {% if not forloop.last %}
+                    <li><a href="{% url m.url_name %}">{{m.title}}</a></li>
+                  {% else %}
+                    <li class="last">
+                    <a href="{% url m.url_name %}">{{m.title}}</a>
+                    </li>
+                  {% endif %} 
+                {% endfor %}
+              </ul>
+              <div class="clear"></div>
+            </div>
           {% endblock mainmenu %}
 
           <table
@@ -45,41 +50,45 @@
             <tr>
               <!-- Sidebar слева -->
               <td valign="top" class="left-chapters">
+                {% get_categories as categories %}
                 <ul id="leftchapters">
-                    {% if cat_selected == 0 %}
+                  {% if cat_selected == 0 %}
                     <li class="selected">Все категории</li>
-                    {% else %}
-                    <li><a href="{% url 'home' %}">Все категории</a> </li>
-                    {% endif %}
-
-                {% for c in cats %}
+                  {% else %}
+                    <li><a href="{% url 'home' %}">Все категории</a></li>
+                  {% endif %} 
+                  {% for c in categories %} 
                     {% if c.pk == cat_selected %}
-                        <li class="selected">{{ c.name }}</li>
+                      <li class="selected">{{ c.name }}</li>
                     {% else %}
-                        <li><a href="{{ c.get_absolute_url }}">{{c.name}}</a></li>
-                    {% endif %}
-                {% endfor %}
+                      <li><a href="{{ c.get_absolute_url }}">{{c.name}}</a></li>
+                    {% endif %} 
+                  {% endfor %}
 
                   <li class="share">
                     <p>Наши соцсети</p>
-                    ссылка 1<br>
-                      ссылка 2
+                    ссылка 1<br />
+                    ссылка 2
                   </li>
-                    <li class="share">
+                  <li class="share">
                     <p>Реклама</p>
-                    реклама 1<br>
-                      реклама 2
-                    </li>
+                    реклама 1<br />
+                    реклама 2
+                  </li>
                 </ul>
               </td>
               <!-- Конец Sidebar'а -->
               <td valign="top" class="content">
                 <!-- Хлебные крошки -->
-                {% block breadcrumbs %} {% endblock %}
+                {% block breadcrumbs %} 
+                
+                {% endblock %}
 
                 <!-- Блок контента -->
                 <div class="content-text">
-                  {% block content %} {% endblock %}
+                  {% block content %} 
+                  
+                  {% endblock %}
                 </div>
                 <!-- Конец блока контента -->
               </td>

@@ -12,10 +12,8 @@ menu = [
 
 def index(request):
     posts = Women.objects.all()
-    cats = Category.objects.all()
     context = {
         'posts': posts,
-        'cats': cats,
         'menu': menu,
         'cat_selected': 0,
     }
@@ -58,7 +56,6 @@ def login(request):
 def show_post(request, post_id):
     post = Women.objects.filter(id=post_id)
     print(post)
-    cats = Category.objects.all()
 
     if len(post) == 0:
         raise Http404()
@@ -66,7 +63,6 @@ def show_post(request, post_id):
     context = {
         'menu': menu,
         'post': post,
-        'cats': cats,
         'post_id': post_id,
         'title': 'Посты',
     }
