@@ -2,19 +2,11 @@ from django.http import Http404, HttpResponseNotFound
 from django.shortcuts import redirect, render
 from .models import Women, Category
 
-menu = [
-    {'title': 'О сайте', 'url_name': 'about'},
-    {'title': 'Добавить статью', 'url_name': 'add_page'},
-    {'title': 'Обратная связь', 'url_name': 'contact'},
-    {'title': 'Войти', 'url_name': 'login'},
-]
-
 
 def index(request):
     posts = Women.objects.all()
     context = {
         'posts': posts,
-        'menu': menu,
         'cat_selected': 0,
     }
 
@@ -23,7 +15,6 @@ def index(request):
 
 def about(request):
     context = {
-        'menu': menu,
     }
 
     return render(request, 'women/about.html', context=context)
@@ -31,7 +22,6 @@ def about(request):
 
 def addpage(request):
     context = {
-        'menu': menu,
     }
 
     return render(request, 'women/addpage.html', context=context)
@@ -39,7 +29,6 @@ def addpage(request):
 
 def contact(request):
     context = {
-        'menu': menu,
     }
 
     return render(request, 'women/contact.html', context=context)
@@ -47,7 +36,6 @@ def contact(request):
 
 def login(request):
     context = {
-        'menu': menu,
     }
 
     return render(request, 'women/login.html', context=context)
@@ -61,7 +49,6 @@ def show_post(request, post_id):
         raise Http404()
 
     context = {
-        'menu': menu,
         'post': post,
         'post_id': post_id,
         'title': 'Посты',
@@ -80,7 +67,6 @@ def show_category(request, cat_id):
     context = {
         'posts': posts,
         'cats': cats,
-        'menu': menu,
         'cat_selected': cat_id,
     }
 
@@ -91,7 +77,6 @@ def show_category(request, cat_id):
 
 def archive(request, year):
     context = {
-        'menu': menu,
     }
 
     if int(year) > 2023:
