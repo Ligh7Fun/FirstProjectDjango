@@ -1,18 +1,20 @@
-{% extends 'women/base.html' %} {% block content %}
-<p>Содержимое страницы post: {{post_id}}</p>
-<div class="block">
-  {% for p in post %}
-  <div class="article-panel">
-    <p class="first">
-      {% if p.cat != None %} Категория: {{ p.cat }} {% endif %}
+{% extends 'women/base.html' %} 
+{% block content %}
+  <div class="block">
+    <div class="article-panel">
+      <p class="first">
+        {% if post.cat != None %} 
+          Категория: {{ post.cat }} 
+        {% endif %}
+      </p>
+      <p class="last">Дата: {{ post.time_update|date:'d-m-Y H:i:s' }}</p>
+    </div>
+    <h1>{{post.title}}</h1>
+    <p>
+      {% if post.photo %}
+        <img class="img-article-left" src="{{post.photo.url}}" />
+      {% endif%}
+      {{post.content|linebreaks}} 
     </p>
-    <p class="last">Дата: {{ p.time_update|date:'d-m-Y H:i:s' }}</p>
   </div>
-  <h1>{{p.title}}</h1>
-  <p>
-    <img class="img-article-left" src="{% url 'home' %}media/{{ p.photo }}" />
-    {{p.content|linebreaks}} {% endfor %}
-  </p>
-  {% endblock %} alias pr "python3 manage.py runserver" alias venva "source
-  venv/bin/activate"
-</div>
+{% endblock %}

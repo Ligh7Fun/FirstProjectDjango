@@ -1,5 +1,5 @@
 from django.http import Http404, HttpResponseNotFound
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Women, Category
 
 
@@ -41,17 +41,13 @@ def login(request):
     return render(request, 'women/login.html', context=context)
 
 
-def show_post(request, post_id):
-    post = Women.objects.filter(id=post_id)
-    print(post)
-
-    if len(post) == 0:
-        raise Http404()
+def show_post(request, post_slug):
+    post = get_object_or_404(Women, slug=post_slug)
 
     context = {
         'post': post,
-        'post_id': post_id,
         'title': 'Посты',
+        'cat_selected': post.cat_id,
     }
 
     return render(request, 'women/post.html', context=context)

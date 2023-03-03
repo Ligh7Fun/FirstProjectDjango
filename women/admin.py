@@ -26,6 +26,11 @@ class WomenAdmin(admin.ModelAdmin):
         'is_published',
         'time_create',
     )
+    prepopulated_fields = {
+        'slug': (
+            'title',
+        )
+    }
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -40,6 +45,11 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = (
         'name',
     )
+    prepopulated_fields = {
+        'slug': (
+            'name',
+        )
+    }
 
 
 admin.site.register(Women, WomenAdmin)
