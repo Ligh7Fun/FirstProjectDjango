@@ -43,19 +43,18 @@ def login(request):
 
 def show_post(request, post_slug):
     post = get_object_or_404(Women, slug=post_slug)
-
     context = {
         'post': post,
         'title': 'Посты',
-        'cat_selected': post.cat_id,
+        # 'cat_selected': post.cat,
     }
 
     return render(request, 'women/post.html', context=context)
 
 
-def show_category(request, cat_id):
-    posts = Women.objects.filter(cat_id=cat_id)
-    cats = Category.objects.all()
+def show_category(request, cat_slug):
+    posts = Women.objects.filter(cat_id__slug=cat_slug)
+    cats = Category.objects.filter(slug=cat_slug)
 
     if len(posts) == 0:
         raise Http404()
@@ -63,11 +62,9 @@ def show_category(request, cat_id):
     context = {
         'posts': posts,
         'cats': cats,
-        'cat_selected': cat_id,
+        'cat_selected': cat_slug,
     }
 
-    if request.GET:
-        print(request.GET)  # словарь get запросов
     return render(request, 'women/index.html', context=context)
 
 
